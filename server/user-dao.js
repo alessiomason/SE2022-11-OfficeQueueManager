@@ -42,7 +42,7 @@ exports.getUser = (username, password) => {
 			if (err) { reject(err); }
 			else if (row === undefined) { resolve(false); }
 			else {
-				const user = { id: row.id, username: row.username };
+				const user = { id: row.id, username: row.username, access_right: row.accessRight };
 
 				const salt = row.salt;
 				crypto.scrypt(password, salt, 32, (err, hashedPassword) => {

@@ -5,7 +5,7 @@ function MyOfficierLayout(props) {
 
     return ( 
         <>
-        {!props.loggedIn ? <MyLoginForm /> :
+        {!props.loggedIn ? <MyLoginForm doLogin={props.doLogin} doLogout={props.doLogout} message={props.message} setMessage={props.setMessage} /> :
             <Container>
 
             </Container>

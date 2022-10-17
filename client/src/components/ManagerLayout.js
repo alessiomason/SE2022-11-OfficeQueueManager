@@ -6,7 +6,7 @@ function MyManagerLayout(props) {
   const navigate = useNavigate();
   return (
     <>
-    {!props.loggedIn ? <MyLoginForm /> :
+    {!props.loggedIn ? <MyLoginForm doLogin={props.doLogin} doLogout={props.doLogout} message={props.message} setMessage={props.setMessage} /> :
        <Container>
        <Row>
          <Col md={{ span: 6, offset: 4 }}>
