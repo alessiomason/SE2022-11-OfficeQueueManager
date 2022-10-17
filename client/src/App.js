@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet, useNavigate } from 'react-router-dom';
 import MyNavbar from './components/Navbar';
 import MyClientLayout from './components/ClientLayout';
-import MyOfficierLayout from './components/OfficierLayout';
+import MyOfficerLayout from './components/OfficerLayout';
 import MyManagerLayout from './components/ManagerLayout';
 import MyHome from './components/Home';
 import API from './API';
@@ -74,7 +74,7 @@ function App2() {
         <Route path="/" element={<MyLayout />}>
           <Route index element={<MyHome />} />
           <Route path="manager/" element={<MyManagerLayout loggedIn={loggedIn} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
-          <Route path="officier/" element={<MyOfficierLayout loggedIn={loggedIn} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
+          <Route path="officer/" element={<MyOfficerLayout loggedIn={loggedIn} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
           <Route path="client/" element={<MyClientLayout />} />
         </Route>
       </Routes>

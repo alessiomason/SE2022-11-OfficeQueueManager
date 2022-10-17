@@ -2,7 +2,7 @@ import { Button, Col, Nav, Row, ListGroup, Navbar, Container, NavDropdown } from
 import { useNavigate } from "react-router-dom";
 import { default as Client } from "../icons/client.svg";
 import { default as Manager } from "../icons/manager.svg";
-import { default as Officier } from "../icons/officier.svg";
+import { default as Officer } from "../icons/officer.svg";
 
 function MyHome() {
 
@@ -26,8 +26,8 @@ function MyHome() {
           </Button>
         </Col>
         <Col md={3}>
-          <Button size="lg" onClick={() => navigate("/officier")}>
-            <img src={Officier} alt="officier" className='me-2' /> Officer
+          <Button size="lg" onClick={() => navigate("/officer")}>
+            <img src={Officer} alt="officer" className='me-2' /> Officer
           </Button>
         </Col>
         <Col md={3}>

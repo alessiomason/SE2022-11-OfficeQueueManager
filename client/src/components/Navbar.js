@@ -2,7 +2,7 @@ import { Button, Col, Nav, Row, ListGroup, Navbar, Container, NavDropdown } from
 import { default as Menu } from "../icons/menu.svg";
 import { default as Client } from "../icons/client.svg";
 import { default as Manager } from "../icons/manager.svg";
-import { default as Officier } from "../icons/officier.svg";
+import { default as Officer } from "../icons/officer.svg";
 import { default as User } from '../icons/user.svg';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
@@ -50,8 +50,8 @@ function MyNavbar() {
           <ListGroup.Item action className='menu-item' onClick={() => navigate("/client")}>
             <img src={Client} alt="client" className='me-2 svg' /> Client
           </ListGroup.Item>
-          <ListGroup.Item action className='menu-item' onClick={() => navigate("/officier")}>
-            <img src={Officier} alt="officier" className='me-2' /> Officer
+          <ListGroup.Item action className='menu-item' onClick={() => navigate("/officer")}>
+            <img src={Officer} alt="officer" className='me-2' /> Officer
           </ListGroup.Item>
           <ListGroup.Item action className='menu-item' onClick={() => navigate("/manager")}>
             <img src={Manager} alt="manager" className='me-2' /> Manager

@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import MyLoginForm from './LoginForm';
 
-function MyOfficierLayout(props) { 
+function MyOfficerLayout(props) { 
 
     return ( 
         <>
@@ -14,4 +14,4 @@ function MyOfficierLayout(props) {
     );
 }
 
-export default MyOfficierLayout;
+export default MyOfficerLayout;
