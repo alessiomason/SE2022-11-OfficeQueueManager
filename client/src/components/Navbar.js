@@ -41,8 +41,9 @@ function MyNavbar() {
       </Navbar>
 
       <Nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-        <h4 className='side-title'> Choose user: </h4>
+        
         <ListGroup variant="flush">
+          <ListGroup.Item className='menu-item mb-3'> <h4 className='side-title'> Choose user: </h4></ListGroup.Item>
           <ListGroup.Item action className='menu-item' onClick={() => navigate("/client")}>
             <img src={Client} alt="client" className='me-2 svg' /> Client
           </ListGroup.Item>
@@ -53,6 +54,7 @@ function MyNavbar() {
             <img src={Manager} alt="manager" className='me-2' /> Manager
           </ListGroup.Item>
         </ListGroup>
+        
       </Nav>
 
     </>
