@@ -14,9 +14,9 @@ import { Col, Container, Row } from 'react-bootstrap';
 
 function App() {
   return (
-      <Router>
-          <App2 />
-      </Router>
+    <Router>
+      <App2 />
+    </Router>
   );
 }
 
@@ -27,28 +27,34 @@ function App2() {
 
   const navigate = useNavigate();
 
-    function handleError(err) {
-        console.log(err);
-    }
+  function handleError(err) {
+    console.log(err);
+  }
 
-    const doLogin = (credentials) => {
-        API.login(credentials)
-            .then(user => {
-                setLoggedIn(true);
-                setUser(user);
-                setMessage('');
-                navigate('/');
-            })
-            .catch(err => {
-                setMessage(err);
-            })
-    }
+  const doLogin = (credentials) => {
+    API.login(credentials)
+      .then(user => {
+        setLoggedIn(true);
+        setUser(user);
+        setMessage('');
+        if (user.access_right == 'manager')
+          navigate('/manager');
+        else if (user.access_right == 'officer')
+          navigate('/officer');
+        else
+          navigate('/');
+      })
+      .catch(err => {
+        setMessage(err);
+      })
+  }
 
-    const doLogout = async () => {
-        await API.logout();
-        setLoggedIn(false);
-        setUser({});
-    }
+  const doLogout = async () => {
+    await API.logout();
+    setLoggedIn(false);
+    setUser({});
+    navigate('/');
+  }
 
   function MyLayout(props) {
 
@@ -70,14 +76,14 @@ function App2() {
 
   return (
 
-      <Routes>
-        <Route path="/" element={<MyLayout loggedIn={loggedIn} user={user} doLogout={doLogout} />}>
-          <Route index element={<MyHome />} />
-          <Route path="manager/" element={<MyManagerLayout loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
-          <Route path="officer/" element={<MyOfficerLayout loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
-          <Route path="client/" element={<MyClientLayout />} />
-        </Route>
-      </Routes>
+    <Routes>
+      <Route path="/" element={<MyLayout loggedIn={loggedIn} user={user} doLogout={doLogout} />}>
+        <Route index element={<MyHome />} />
+        <Route path="manager/" element={<MyManagerLayout loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
+        <Route path="officer/" element={<MyOfficerLayout loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
+        <Route path="client/" element={<MyClientLayout />} />
+      </Route>
+    </Routes>
 
   );
 }
