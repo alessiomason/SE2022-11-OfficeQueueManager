@@ -14,14 +14,26 @@ function MyManagerLayout() {
         <Row>
           <Col md={{ span: 4, offset: 4 }}>
             <Form>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-              <img src={UserLogin} alt="user" className='me-2 svg-login' />
-                <Form.Control type="email" placeholder="Enter email address" />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-              <img src={Password} alt="password" className='me-2 svg login' />
-                <Form.Control type="password" placeholder="Enter password" />
-              </Form.Group>
+              <Row>
+                <Col md={1}>
+                  <img src={UserLogin} alt="user" />
+                </Col>
+                <Col md={11}>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Control type="email" placeholder="Enter email address" />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={1}>
+                  <img src={Password} alt="password" className='me-2 svg login' />
+                </Col>
+                <Col md={11}>
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Control type="password" placeholder="Enter password" />
+                  </Form.Group>
+                </Col>
+              </Row>
               <Button variant="primary" type="submit" >
                 Submit
               </Button>
