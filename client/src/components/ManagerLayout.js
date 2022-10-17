@@ -6,7 +6,7 @@ function MyManagerLayout(props) {
   const navigate = useNavigate();
   return (
     <>
-   
+    {!props.loggedIn ? <MyLoginForm /> :
        <Container>
        <Row>
          <Col md={{ span: 6, offset: 4 }}>
@@ -14,14 +14,14 @@ function MyManagerLayout(props) {
          </Col>
        </Row>
        <Row className="mt-5">
-         <Col md={{ span: 2, offset: 4 }}>
+         <Col md={2}>
            <Button size="lg" onClick={() => navigate("/manager")}>
              <img src={Manager} alt="manager" className='me-2 svg' /> Create
            </Button>
          </Col>
        </Row>
      </Container>
-    
+}
     </>
   );
 }
