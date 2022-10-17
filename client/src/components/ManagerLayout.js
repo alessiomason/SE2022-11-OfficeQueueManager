@@ -1,7 +1,7 @@
 import { Button, Col, Form, Nav, Row, ListGroup, Navbar, Container, NavDropdown } from "react-bootstrap";
 import MyLoginForm from './LoginForm';
 import { useNavigate } from "react-router-dom";
-import { default as Manager } from "../icons/manager.svg";
+import { default as Manager } from "../icons/worker.svg";
 function MyManagerLayout(props) {
   const navigate = useNavigate();
   return (

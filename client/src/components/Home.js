@@ -1,8 +1,7 @@
 import { Button, Col, Nav, Row, ListGroup, Navbar, Container, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { default as Client } from "../icons/client.svg";
-import { default as Manager } from "../icons/manager.svg";
-import { default as Officer } from "../icons/officer.svg";
+import { default as Worker } from "../icons/worker.svg";
 
 function MyHome() {
 
@@ -26,13 +25,8 @@ function MyHome() {
           </Button>
         </Col>
         <Col md={3}>
-          <Button size="lg" onClick={() => navigate("/officer")}>
-            <img src={Officer} alt="officer" className='me-2' /> Officer
-          </Button>
-        </Col>
-        <Col md={3}>
           <Button size="lg" onClick={() => navigate("/manager")}>
-            <img src={Manager} alt="manager" className='me-2' /> Manager
+            <img src={Worker} alt="manager" className='me-2' /> Worker
           </Button>
         </Col>
       </Row>
