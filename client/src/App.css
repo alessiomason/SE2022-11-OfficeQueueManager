@@ -16,7 +16,11 @@
   margin-left:8vh;
 }
 
-.login-title{
-  justify-content: center;
+.svg-login{
+  display: inline;
+  fill: black !important;
+  color: black !important;
+  width: 20px;
+  height: 20px;
 }
 
