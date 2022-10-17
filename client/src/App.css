@@ -3,9 +3,8 @@
 }
 
 .vheight-100 {  
-  padding-top: 80px;
+  padding-top: 50px;
   height: 91vh;
-
   background-size: cover;
   top:0;
   justify-content: center;
@@ -37,3 +36,29 @@
   background-color: whitesmoke;
 }
 
+.client-border1{
+  border: 3px solid #198754;
+  border-radius: 15px;
+  height: 15vh;
+  overflow: auto;
+  padding-top: 20px;
+  background-color: whitesmoke;
+}
+
+.client-border2{
+  border: 3px solid #198754;
+  border-radius: 15px;
+  height: 40vh;
+  overflow: auto;
+  padding-top: 20px;
+  background-color: whitesmoke;
+}
+
+.client-border3{
+  border: 3px solid #198754;
+  border-radius: 15px;
+  height: 64vh;
+  overflow: auto;
+  padding-top: 20px;
+  background-color: whitesmoke;
+}
