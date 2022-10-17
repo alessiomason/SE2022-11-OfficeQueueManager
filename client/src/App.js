@@ -50,13 +50,13 @@ function App2() {
         setUser({});
     }
 
-  function MyLayout() {
+  function MyLayout(props) {
 
     return (
       <>
         <Container>
           <Row>
-            <MyNavbar />
+            <MyNavbar loggedIn={props.loggedIn} user={props.user} doLogout={props.doLogout} />
           </Row>
         </Container>
         <Container fluid className='main'>
@@ -71,10 +71,10 @@ function App2() {
   return (
 
       <Routes>
-        <Route path="/" element={<MyLayout />}>
+        <Route path="/" element={<MyLayout loggedIn={loggedIn} user={user} doLogout={doLogout} />}>
           <Route index element={<MyHome />} />
-          <Route path="manager/" element={<MyManagerLayout loggedIn={loggedIn} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
-          <Route path="officer/" element={<MyOfficerLayout loggedIn={loggedIn} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
+          <Route path="manager/" element={<MyManagerLayout loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
+          <Route path="officer/" element={<MyOfficerLayout loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
           <Route path="client/" element={<MyClientLayout />} />
         </Route>
       </Routes>

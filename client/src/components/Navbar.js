@@ -7,9 +7,8 @@ import { default as User } from '../icons/user.svg';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import '../Navbar.css';
-import { propTypes } from "react-bootstrap/esm/Image";
 
-function MyNavbar() {
+function MyNavbar(props) {
 
   const [sidebar, setSidebar] = useState(false);
 
@@ -35,7 +34,8 @@ function MyNavbar() {
           </Col>
           <Col md={{ span: 1, offset: 4 }} >
             <Navbar.Brand>
-              <img src={User} alt="user_image" bg="blue" className="float-end" />
+              {props.loggedIn ? <Button onClick={props.doLogout}>Logout</Button> :
+              <img src={User} alt="user_image" bg="blue" className="float-end" /> }
             </Navbar.Brand>
           </Col>
         </Container>
