@@ -1,24 +1,48 @@
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import MyNavbar from './components/Navbar';
+import MyClientLayout from './components/ClientLayout';
+import MyOfficierLayout from './components/OfficierLayout';
+import MyManagerLayout from './components/ManagerLayout';
+import MyHome from './components/Home';
+
+import { Col, Container, Row } from 'react-bootstrap';
+
 
 function App() {
+
+  function MyLayout() {
+
+    return (
+      <>
+        <Container>
+          <Row>
+            <MyNavbar />
+          </Row>
+        </Container>
+        <Container fluid className='main'>
+          <Row className="vheight-100">
+            <Outlet />
+          </Row>
+        </Container>
+      </>
+    );
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <Router>
+      <Routes>
+        <Route path="/" element={<MyLayout />}>
+          <Route index element={<MyHome />} />
+          <Route path="manager/" element={<MyManagerLayout />} />
+          <Route path="officier/" element={<MyOfficierLayout />} />
+          <Route path="client/" element={<MyClientLayout />} />
+        </Route>
+      </Routes>
+    </Router>
+
   );
 }
 
