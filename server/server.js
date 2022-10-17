@@ -16,7 +16,7 @@ passport.use(new LocalStrategy(
     function (username, password, done) {
         userDao.getUser(username, password).then((user) => {
             if (!user)
-                return done(null, false, { message: 'Email e/o password non corrette.' });
+                return done(null, false, { message: 'Username e/o password non corrette.' });
 
             return done(null, user);
         })
