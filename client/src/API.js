@@ -1,5 +1,10 @@
 const APIURL = new URL('http://localhost:3001/api/');
 
+async function getTicket(clientName) {
+	// temporarily, I return a random number between 1 and 99
+	return Math.floor(Math.random() * 99) + 1;
+}
+
 async function login(credentials) {
 	let response = await fetch(new URL('sessions', APIURL), {
 		method: 'POST',
@@ -32,5 +37,5 @@ async function getUserInfo() {
 	}
 }
 
-const API = { login, logout, getUserInfo };
+const API = { getTicket, login, logout, getUserInfo };
 export default API;
