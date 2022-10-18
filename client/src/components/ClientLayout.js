@@ -10,9 +10,17 @@ function MyClientLayout(props) {
   const [ticketNumber, setTicketNumber] = useState(-1);
   const [serviceType, setServiceType] = useState('');
 
-  async function handleSubmit() {
-    const t = await API.getTicket(clientName);
-    setTicketNumber(t);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const ticket = API.getTicket(clientName, serviceType);
+
+    ticket.then( value => {
+      setTicketNumber(value);
+    }).catch(err => {
+      console.log(err);
+    })
+    
   }
 
   return (
@@ -57,10 +65,9 @@ function RequestTicket(props) {
         </Col>
         <Col md={{ span: 5, offset: 1 }}>
         <select value={props.serviceType} onChange={ev => props.setServiceType(ev.target.value)} className="select">
-            <option value="grapefruit">Grapefruit</option>
-            <option value="lime">Lime</option>
-            <option value="coconut">Coconut</option>
-            <option value="mango">Mango</option>
+            <option value="service #1">service #1</option>
+            <option value="service #2">service #2	</option>
+            <option value="service #3">service #3</option>
           </select>
         </Col>
       </Row>

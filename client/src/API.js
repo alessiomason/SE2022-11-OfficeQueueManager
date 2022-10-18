@@ -1,8 +1,35 @@
 const APIURL = new URL('http://localhost:3001/api/');
 
-async function getTicket(clientName) {
+async function getTicket(clientName, serviceType) { 
+
 	// temporarily, I return a random number between 1 and 99
-	return Math.floor(Math.random() * 99) + 1;
+	// return Math.floor(Math.random() * 99) + 1;
+	
+	const ticket = JSON.stringify({
+		name: clientName,
+		serviceType: serviceType
+	});
+
+	// call: POST /api/newTicket
+	return new Promise((resolve, reject) => {
+		fetch(new URL('newTicket', APIURL), {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: ticket,
+		}).then((response) => {
+			if (response.ok) {
+				resolve(response.json());
+			} else {
+				// analyze the cause of error
+				response.json()
+					.then((message) => { reject(message); }) // error message in the response body
+					.catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+			}
+		}).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+	});
+	
 }
 
 async function login(credentials) {
