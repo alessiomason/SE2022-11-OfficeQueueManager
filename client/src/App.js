@@ -11,6 +11,9 @@ import API from './API';
 
 import { Col, Container, Row } from 'react-bootstrap';
 
+var services=[{id:1,tagName: "service1",serviceTime:"20"}]//da sostituire con chiamata al backend
+
+
 
 function App() {
   return (
@@ -79,7 +82,7 @@ function App2() {
     <Routes>
       <Route path="/" element={<MyLayout loggedIn={loggedIn} user={user} doLogout={doLogout} />}>
         <Route index element={<MyHome />} />
-        <Route path="manager/" element={<MyManagerLayout loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
+        <Route path="manager/" element={<MyManagerLayout services={services} loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
         <Route path="officer/" element={<MyOfficerLayout loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
         <Route path="client/" element={<MyClientLayout />} />
       </Route>
