@@ -37,5 +37,16 @@ async function getUserInfo() {
 	}
 }
 
-const API = { getTicket, login, logout, getUserInfo };
+async function getServices() {
+	// call /api/services
+	const response = await fetch(new URL('services', APIURL));
+	const services = await response.json();
+	if (response.ok) {
+		return services.map((u) => ({ id: u.id, tagName: u.tagName, serviceTime: u.serviceTime }))
+	} else {
+		throw services;
+	}
+}
+
+const API = { getTicket, login, logout, getUserInfo, getServices };
 export default API;

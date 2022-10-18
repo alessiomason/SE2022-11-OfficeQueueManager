@@ -5,7 +5,7 @@ import API from '../API';
 
 import { default as Confirm } from '../icons/confirm.svg';
 
-function MyClientLayout() {
+function MyClientLayout(props) {
   const [clientName, setClientName] = useState('');
   const [ticketNumber, setTicketNumber] = useState(-1);
   const [serviceType, setServiceType] = useState('');
@@ -21,7 +21,7 @@ function MyClientLayout() {
         <Col md={{ span: 10, offset: 1 }}>
           <Row className="client-border1">
             {ticketNumber < 0 ?
-              <RequestTicket handleSubmit={handleSubmit} clientName={clientName} setClientName={setClientName} serviceType={serviceType} setServiceType={setServiceType} /> :
+              <RequestTicket handleSubmit={handleSubmit} clientName={clientName} setClientName={setClientName} services={props.services} serviceType={serviceType} setServiceType={setServiceType} /> :
               <ShowTicket clientName={clientName} ticketNumber={ticketNumber} />}
           </Row>
         </Col>
@@ -36,7 +36,7 @@ function MyClientLayout() {
     </Container>
   );
 }
-
+// need to modifify types of service with the data on the db
 function RequestTicket(props) {
   return (
     <Form onSubmit={props.handleSubmit}>
@@ -56,7 +56,7 @@ function RequestTicket(props) {
           <h6>Select the type of service needed:</h6>
         </Col>
         <Col md={{ span: 5, offset: 1 }}>
-          <select value={props.serviceType} onChange={ev => props.setServiceType(ev.target.value)} className="select">
+        <select value={props.serviceType} onChange={ev => props.setServiceType(ev.target.value)} className="select">
             <option value="grapefruit">Grapefruit</option>
             <option value="lime">Lime</option>
             <option value="coconut">Coconut</option>
