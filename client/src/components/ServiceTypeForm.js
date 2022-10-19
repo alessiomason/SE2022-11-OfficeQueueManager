@@ -1,14 +1,16 @@
-import { Button, Alert, Form } from 'react-bootstrap';
+import { Alert, Form } from 'react-bootstrap';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import { Button} from "rsuite";
+import "rsuite/dist/rsuite.min.css";
 
 function ServiceTypeForm(props) {
   const { serviceTypeId } = useParams();
 
-  const serviceTypeToEdit = props.serviceTypes.find( (s) => s.id === serviceTypeId );
 
+
+  const serviceTypeToEdit = props.services.find( (s) => s.id == serviceTypeId );
   const [tagName, setTagName] = useState(serviceTypeToEdit ? serviceTypeToEdit.tagName : '');
   const [serviceTime, setServiceTime] = useState(serviceTypeToEdit  ? serviceTypeToEdit.serviceTime : 0);
 
@@ -35,7 +37,11 @@ function ServiceTypeForm(props) {
       <Container>
         <Row>
           <Col>
-            <h1>Form  code: {serviceTypeId}</h1>
+          {
+            serviceTypeToEdit ? <h1>Editing of {tagName}</h1> :
+            <h1>Creating new service type</h1>
+          }
+            
           </Col>
         </Row>
         <Row>
@@ -50,8 +56,8 @@ function ServiceTypeForm(props) {
                 <Form.Label>ServiceTime</Form.Label>
                 <Form.Control type='number' min={0} value={serviceTime} onChange={ev => setServiceTime(ev.target.value)} />
               </Form.Group>
-              <Button type='submit' >Save</Button>
-              <Button onClick={ ()=> navigate('/manager')} variant='secondary' >Cancel</Button>
+              <Button className= 'm-3' type='submit' >Save</Button>
+              <Button className= 'm-3' color='red' appearance="primary" onClick={ ()=> navigate('/manager')} variant='secondary' >Cancel</Button>
             </Form>
           </Col>
         </Row>

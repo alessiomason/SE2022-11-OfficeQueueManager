@@ -9,6 +9,8 @@ import TrashIcon from '@rsuite/icons/Trash';
 const EdIcon = ({ size }) => <EditIcon style={{ fontSize: size, marginRight: 10 }} />;
 const DeleteIcon = ({ size }) => <TrashIcon style={{ fontSize: size, marginRight: 10 }} />;
 const OutlineIcon = ({ size }) => <AddOutlineIcon style={{ fontSize: size, marginRight: 10 }} />;
+
+
 function MyManagerLayout(props) {
   const navigate = useNavigate();
   return (
@@ -22,7 +24,7 @@ function MyManagerLayout(props) {
           </Row>
           <Row>
             <Col style={{display: 'flex', justifyContent: 'center', paddingLeft: '5em',paddingRight: '5em'}}>
-              <ServiceTable services={props.services}></ServiceTable>
+              <ServiceTable services={props.services} deleteServiceType={props.deleteServiceType} ></ServiceTable>
             </Col>
           </Row>
           <Row>
@@ -56,7 +58,7 @@ function ServiceTable(props) {
         </thead>
         <tbody>
           {
-            props.services.map((s) => <ServiceRow service={s} key={s.id} />)
+            props.services.map((s) => <ServiceRow service={s} key={s.id} deleteServiceType={props.deleteServiceType}/>)
           }
         </tbody>
       </Table>
@@ -71,7 +73,7 @@ function ServiceRow(props) {
 
   return (
     <tr >
-      <ServiceData service={props.service} />
+      <ServiceData service={props.service} deleteServiceType={props.deleteServiceType}/>
     </tr>
   );
 }
@@ -83,8 +85,9 @@ function ServiceData(props) {
     <>
       <td>{props.service.tagName}</td>
       <td> {props.service.serviceTime}</td>
-      <td><Button className='mx-2' onClick={()=>{navigate(`/edit/${props.service.id}`)} }> <EdIcon size="1.5em"></EdIcon>Edit</Button></td>
-      <td><Button className='mx-2' color='red' appearance="primary" onClick={props.deleteServiceType(props.service.id)  }> <DeleteIcon size="1.5em"></DeleteIcon>Delete</Button></td>
+      <td><Button className='mx-2' onClick={()=>{navigate(`/service/${props.service.id}/`)} }> <EdIcon size="1.5em"></EdIcon>Edit</Button></td>
+      <td><Button className='mx-2' color='red' appearance="primary" onClick={props.deleteServiceType(props.service.id)
+      }> <DeleteIcon size="1.5em"></DeleteIcon>Delete</Button></td>
     </>
   );
 }

@@ -12,7 +12,6 @@ import API from './API';
 
 import { Col, Container, Row } from 'react-bootstrap';
 
-// var services=[{id:1,tagName: "service1",serviceTime:"20"}]//da sostituire con chiamata al backend
 
 
 
@@ -25,10 +24,30 @@ function App() {
 }
 
 function App2() {
-  const [loggedIn, setLoggedIn] = useState(false);
+
+
+
+
+ const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState({});
   const [message, setMessage] = useState('');
   const [services, setServices] = useState('');
+
+
+  function deleteServiceType(id) {
+    //setServices( services.filter( (s)=> s.id !== id ) );
+  }
+
+  function addServiceType(serviceType) {
+    setServices( oldServices => [...oldServices, serviceType] );
+  }
+
+  function updateServiceType(serviceType) {
+    setServices(services => services.map(
+      s => (s.id === serviceType.id) ? Object.assign({}, serviceType) : s
+    ));
+  }
+
 
   const navigate = useNavigate();
 
@@ -91,12 +110,12 @@ function App2() {
     <Routes>
       <Route path="/" element={<MyLayout loggedIn={loggedIn} user={user} doLogout={doLogout} />}>
         <Route index element={<MyHome />} />
-        <Route path="manager/" element={<MyManagerLayout services={services} loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
+        <Route path="manager/" element={<MyManagerLayout services={services} deleteServiceType={deleteServiceType}
+        loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
         <Route path="officer/" element={<MyOfficerLayout loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
-        <Route path="client/" element={<MyClientLayout services={services}/>} />
-        <Route path="add/" element={<MyServiceTypeForm />} />
-
-        <Route path="service/:serviceId/" element={<MyServiceTypeForm />} />
+        <Route path="client/" element={<MyClientLayout services={services} />} />
+        <Route path="create/" element={<MyServiceTypeForm addServiceType={addServiceType} services={services} />} />
+        <Route path="service/:serviceTypeId/" element={<MyServiceTypeForm services={services} addServiceType={updateServiceType}/>} />
       </Route>
     </Routes>
 
