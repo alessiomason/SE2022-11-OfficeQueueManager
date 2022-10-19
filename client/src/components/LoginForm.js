@@ -57,7 +57,7 @@ function MyLoginForm(props) {
               <Row>
                 <Col >
                   <Form onSubmit={handleSubmit}>
-                    {props.message && <Alert className='form-element error-alert' onClose={() => props.setMessage('')} dismissible>{props.message}</Alert>}
+                    {props.message && <Alert variant='danger' onClose={() => props.setMessage('')} dismissible>{props.message}</Alert>}
                     <Row>
                       <Col md={1}>
                         <img src={UserLogin} alt="user" />

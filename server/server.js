@@ -7,7 +7,7 @@ const userDao = require('./user-dao');
 const passport = require('passport');   // authentication middleware
 const LocalStrategy = require('passport-local').Strategy;   // username and password for login
 const session = require('express-session');    // enable sessions
-const riddlesAPIs = require('./API');
+const APIs = require('./API');
 
 /*** Set up Passport ***/
 // set up the "username and password" login strategy
@@ -72,7 +72,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // expose the APIs
-riddlesAPIs.useAPIs(app, isLoggedIn);
+APIs.useAPIs(app, isLoggedIn);
 
 
 // SESSION APIs
@@ -119,3 +119,5 @@ app.get('/api/sessions/current', (req, res) => {
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 });
+
+module.exports = app;

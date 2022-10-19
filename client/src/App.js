@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet, useNavigate } from 'react-router-dom';
 import MyNavbar from './components/Navbar';
 import MyClientLayout from './components/ClientLayout';
@@ -12,7 +12,7 @@ import API from './API';
 
 import { Col, Container, Row } from 'react-bootstrap';
 
-var services=[{id:1,tagName: "service1",serviceTime:"20"}]//da sostituire con chiamata al backend
+// var services=[{id:1,tagName: "service1",serviceTime:"20"}]//da sostituire con chiamata al backend
 
 
 
@@ -28,6 +28,7 @@ function App2() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState({});
   const [message, setMessage] = useState('');
+  const [services, setServices] = useState('');
 
   const navigate = useNavigate();
 
@@ -60,6 +61,13 @@ function App2() {
     navigate('/');
   }
 
+  useEffect(() => {
+    API.getServices()
+      .then((s) => { setServices(s) })
+      .catch( err => handleError(err));
+
+  }, []);
+
   function MyLayout(props) {
 
     return (
@@ -85,7 +93,7 @@ function App2() {
         <Route index element={<MyHome />} />
         <Route path="manager/" element={<MyManagerLayout services={services} loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
         <Route path="officer/" element={<MyOfficerLayout loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
-        <Route path="client/" element={<MyClientLayout />} />
+        <Route path="client/" element={<MyClientLayout services={services}/>} />
         <Route path="add/" element={<MyServiceTypeForm />} />
 
         <Route path="service/:serviceId/" element={<MyServiceTypeForm />} />
