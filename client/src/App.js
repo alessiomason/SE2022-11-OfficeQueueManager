@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet, useNavigate } from 'rea
 import MyNavbar from './components/Navbar';
 import MyClientLayout from './components/ClientLayout';
 import MyOfficerLayout from './components/OfficerLayout';
+import MyServiceTypeForm from './components/ServiceTypeForm';
 import MyManagerLayout from './components/ManagerLayout';
 import MyHome from './components/Home';
 import API from './API';
@@ -85,6 +86,9 @@ function App2() {
         <Route path="manager/" element={<MyManagerLayout services={services} loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
         <Route path="officer/" element={<MyOfficerLayout loggedIn={loggedIn} user={user} doLogin={doLogin} doLogout={doLogout} message={message} setMessage={setMessage} />} />
         <Route path="client/" element={<MyClientLayout />} />
+        <Route path="add/" element={<MyServiceTypeForm />} />
+
+        <Route path="service/:serviceId/" element={<MyServiceTypeForm />} />
       </Route>
     </Routes>
 
