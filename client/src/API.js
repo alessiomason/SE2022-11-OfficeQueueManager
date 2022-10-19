@@ -72,14 +72,16 @@ async function getServices() {
 	}
 }
 function deleteServiceType(id) {
-	// call: DELETE /api/services/:serviceID
+	// call: DELETE /api/services
+
 	return new Promise((resolve, reject) => {
-	  fetch(new URL(`/services/${id}`, APIURL), {
+	  fetch(new URL(`services`, APIURL), {
 		method: 'DELETE',
 		credentials: 'include',
 		headers: {
 		  'Content-Type': 'application/json',
 		},
+		body: JSON.stringify({id:id}),
 	  }).then((response) => {
 		if (response.ok) {
 		  resolve(null);

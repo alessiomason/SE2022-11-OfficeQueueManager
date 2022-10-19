@@ -30,7 +30,7 @@ exports.deleteServiceIdByID = (serviceID) => {
 			if (err) {
 				reject(err);
 			} else {
-				resolve();
+				resolve(null);
 			}
 		});
 	});

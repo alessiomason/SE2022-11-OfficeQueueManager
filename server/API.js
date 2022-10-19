@@ -15,11 +15,12 @@ module.exports.useAPIs = function useAPIs(app, isLoggedIn) {
 		}
 	});
 
-    app.delete('/api/services/:serviceID', async (req, res) => {
-        const serviceID = Number(req.params.serviceID);
+    app.delete('/api/services', async (req, res) => {
+        console.log("server"+req.body.id)
+        const serviceID = req.body.id;
 		try {
-			const deleteService = await dao.deleteServiceIdByID(serviceID);
-			res.status(200).json({success : 'The service deleted.'});
+			await dao.deleteServiceIdByID(serviceID);
+			res.status(200).end();
 		}
 		catch (err) {
 			res.status(500).json({error : 'The service could not deleted'});
