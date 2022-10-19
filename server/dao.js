@@ -24,6 +24,18 @@ exports.services = () => {
 	});
 }	
 
+exports.deleteServiceIdByID = (serviceID) => {
+	return new Promise((resolve, reject) => {
+		db.run("DELETE FROM SERVICE WHERE id=?", [serviceID], (err) => {
+			if (err) {
+				reject(err);
+			} else {
+				resolve();
+			}
+		});
+	});
+};
+
 exports.getServiceIdByTag = (tagName) => {
 	return new Promise((resolve, reject) => {
 		const sql = 'SELECT * FROM SERVICE WHERE tagName = ?';
