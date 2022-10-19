@@ -24,7 +24,7 @@ function ServiceTypeForm(props) {
       setErrorMsg('Il nome del tipo di servizio deve contenere dei caratteri che non siano solo spazi');
     } else {
       // add
-      const newServiceType = { tagName: tagName.trim(), serviceTime: serviceTime }
+      const newServiceType = {id:serviceTypeId, tagName: tagName.trim(), serviceTime: serviceTime }
       props.addServiceType(newServiceType);
       navigate('/manager');
     }
@@ -38,7 +38,7 @@ function ServiceTypeForm(props) {
         <Row>
           <Col>
           {
-            serviceTypeToEdit ? <h1>Editing of {tagName}</h1> :
+            serviceTypeToEdit ? <h1>Editing of {serviceTypeToEdit.tagName}</h1> :
             <h1>Creating new service type</h1>
           }
             

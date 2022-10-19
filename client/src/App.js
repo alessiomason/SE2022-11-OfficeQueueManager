@@ -32,20 +32,31 @@ function App2() {
   const [user, setUser] = useState({});
   const [message, setMessage] = useState('');
   const [services, setServices] = useState('');
-
+ const [dirty,setDirty]=useState(false);
 
   function deleteServiceType(id) {
-    //setServices( services.filter( (s)=> s.id !== id ) );
+    console.log(id)
+
+    API.deleteServiceType (id)
+    .then(() => { setDirty(true) })
+    .catch( err => handleError(err));
   }
 
   function addServiceType(serviceType) {
-    setServices( oldServices => [...oldServices, serviceType] );
+    API.addServiceType(serviceType)
+    .then(() => { setDirty(true) })
+    .catch( err => handleError(err));
   }
 
   function updateServiceType(serviceType) {
-    setServices(services => services.map(
-      s => (s.id === serviceType.id) ? Object.assign({}, serviceType) : s
-    ));
+    console.log(serviceType)
+    API.updateServiceName(serviceType.id,serviceType.tagName)
+    .then(() => { setDirty(true) })
+    .catch( err => handleError(err));
+    API.updateServiceTime(serviceType.id,serviceType.serviceTime)
+    .then(() => { setDirty(true) })
+    .catch( err => handleError(err));
+
   }
 
 
@@ -82,10 +93,10 @@ function App2() {
 
   useEffect(() => {
     API.getServices()
-      .then((s) => { setServices(s) })
+      .then((s) => { setServices(s); setDirty(false)})
       .catch( err => handleError(err));
 
-  }, []);
+  }, [dirty]);
 
   function MyLayout(props) {
 

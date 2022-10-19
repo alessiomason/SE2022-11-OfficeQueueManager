@@ -71,6 +71,102 @@ async function getServices() {
 		throw services;
 	}
 }
-
-const API = { getTicket, login, logout, getUserInfo, getServices };
+function deleteServiceType(id) {
+	// call: DELETE /api/services/:serviceID
+	return new Promise((resolve, reject) => {
+	  fetch(new URL(`/services/${id}`, APIURL), {
+		method: 'DELETE',
+		credentials: 'include',
+		headers: {
+		  'Content-Type': 'application/json',
+		},
+	  }).then((response) => {
+		if (response.ok) {
+		  resolve(null);
+		} else {
+		  // analyze the cause of error
+		  response.json()
+			.then((message) => { reject(message); }) // error message in the response body
+			.catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+		}
+	  }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+	});
+  }
+  
+  
+  
+  
+  function addServiceType(service) {
+	// call: POST /api/newService
+  return new Promise((resolve, reject) => {
+	  fetch(new URL('newService', APIURL), {
+		method: 'POST',
+		credentials: 'include',
+		headers: {
+		  'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({tagName:service.tagName,serviceTime:service.serviceTime}),
+	  
+	  }).then((response) => {
+		if (response.ok) {
+		  resolve(null);
+		} else {
+		  // analyze the cause of error
+		  response.json()
+			.then((message) => { reject(message); }) // error message in the response body
+			.catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+		}
+	  }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+	});
+  
+  
+  
+  }
+  
+  function updateServiceName(id,tagName) {
+	// call: PUT /api/updateServiceName
+	return new Promise((resolve, reject) => {
+	  fetch(new URL('updateServiceName', APIURL), {
+		method: 'PUT',
+		credentials: 'include',
+		headers: {
+		  'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({id:id,tagName: tagName}),
+	  }).then((response) => {
+		if (response.ok) {
+		  resolve(null);
+		} else {
+		  // analyze the cause of error
+		  response.json()
+			.then((obj) => { reject(obj); }) // error message in the response body
+			.catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+		}
+	  }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+	});
+  }
+  function updateServiceTime(id,serviceTime) {
+	// call: PUT /api/updateServiceTime
+	return new Promise((resolve, reject) => {
+	  fetch(new URL('updateServiceTime', APIURL), {
+		method: 'PUT',
+		credentials: 'include',
+		headers: {
+		  'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({id:id,serviceTime: serviceTime}),
+	  }).then((response) => {
+		if (response.ok) {
+		  resolve(null);
+		} else {
+		  // analyze the cause of error
+		  response.json()
+			.then((obj) => { reject(obj); }) // error message in the response body
+			.catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+		}
+	  }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+	});
+  }
+  
+const API = { getTicket, login, logout, getUserInfo, getServices, deleteServiceType,addServiceType,updateServiceName,updateServiceTime };
 export default API;

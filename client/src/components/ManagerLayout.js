@@ -86,8 +86,7 @@ function ServiceData(props) {
       <td>{props.service.tagName}</td>
       <td> {props.service.serviceTime}</td>
       <td><Button className='mx-2' onClick={()=>{navigate(`/service/${props.service.id}/`)} }> <EdIcon size="1.5em"></EdIcon>Edit</Button></td>
-      <td><Button className='mx-2' color='red' appearance="primary" onClick={props.deleteServiceType(props.service.id)
-      }> <DeleteIcon size="1.5em"></DeleteIcon>Delete</Button></td>
+      <td><Button className='mx-2' color='red' appearance="primary" onClick={()=>props.deleteServiceType(props.service.id)}> <DeleteIcon size="1.5em"></DeleteIcon>Delete</Button></td>
     </>
   );
 }
