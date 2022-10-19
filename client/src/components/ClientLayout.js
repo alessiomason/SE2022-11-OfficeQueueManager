@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, Form, Nav, Row, ListGroup, Navbar, Container, NavDropdown, ButtonGroup } from "react-bootstrap";
+import { Button, Col, Form, Nav, Row, ListGroup, Navbar, Container, NavDropdown, ButtonGroup, Alert } from "react-bootstrap";
 import '../App.css';
 import API from '../API';
 
@@ -8,6 +8,7 @@ function MyClientLayout(props) {
   const [clientName, setClientName] = useState('');
   const [ticketNumber, setTicketNumber] = useState(-1);
   const [serviceTypeRequested, setServiceTypeRequested] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     API.getServices()
@@ -17,6 +18,11 @@ function MyClientLayout(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (clientName == '') {
+      setMessage('Your name cannot be empty!');
+      return;
+    }
 
     const ticket = API.getTicket(clientName, serviceTypeRequested);
 
@@ -34,7 +40,7 @@ function MyClientLayout(props) {
         <Col md={{ span: 10, offset: 1 }}>
           <Row className="client-border1">
             {ticketNumber < 0 ?
-              <RequestTicket serviceTypes={serviceTypes} handleSubmit={handleSubmit} clientName={clientName} setClientName={setClientName} services={props.services} serviceTypeRequested={serviceTypeRequested} setServiceTypeRequested={setServiceTypeRequested} /> :
+              <RequestTicket serviceTypes={serviceTypes} handleSubmit={handleSubmit} clientName={clientName} setClientName={setClientName} services={props.services} serviceTypeRequested={serviceTypeRequested} setServiceTypeRequested={setServiceTypeRequested} message={message} setMessage={setMessage} /> :
               <ShowTicket clientName={clientName} ticketNumber={ticketNumber} />}
           </Row>
         </Col>
@@ -49,19 +55,17 @@ function MyClientLayout(props) {
     </Container>
   );
 }
-// need to modifify types of service with the data on the db
+
 function RequestTicket(props) {
   return (
     <Form onSubmit={props.handleSubmit}>
       <Row>
         <h3 className="title">Enter your name, pick the type of service needed and request a ticket:</h3>
-        <Col md={{ span: 8, offset: 1 }}>
+        <Col md={{ span: 10, offset: 1 }}>
+        {props.message && <Alert variant='danger' onClose={() => props.setMessage('')} dismissible>{props.message}</Alert>}
           <Form.Group className="mb-3">
             <Form.Control type="text" placeholder="Enter client name" value={props.clientName} onChange={ev => props.setClientName(ev.target.value)} />
           </Form.Group>
-        </Col>
-        <Col md={3}>
-          <Button variant="primary" type="submit">Submit</Button>
         </Col>
       </Row>
       <Row className='select-row'>
