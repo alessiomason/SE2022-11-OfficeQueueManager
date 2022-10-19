@@ -1,26 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Col, Form, Nav, Row, ListGroup, Navbar, Container, NavDropdown, ButtonGroup } from "react-bootstrap";
 import '../App.css';
 import API from '../API';
 
-import { default as Confirm } from '../icons/confirm.svg';
-
 function MyClientLayout(props) {
+  const [serviceTypes, setServiceTypes] = useState([]);
   const [clientName, setClientName] = useState('');
   const [ticketNumber, setTicketNumber] = useState(-1);
-  const [serviceType, setServiceType] = useState('');
+  const [serviceTypeRequested, setServiceTypeRequested] = useState('');
+
+  useEffect(() => {
+    API.getServices()
+      .then(sTypes => { setServiceTypes(sTypes); setServiceTypeRequested(sTypes[0].tagName); })
+      .catch(err => console.log(err));
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const ticket = API.getTicket(clientName, serviceType);
+    const ticket = API.getTicket(clientName, serviceTypeRequested);
 
-    ticket.then( value => {
+    ticket.then(value => {
       setTicketNumber(value);
     }).catch(err => {
       console.log(err);
     })
-    
+
   }
 
   return (
@@ -29,7 +34,7 @@ function MyClientLayout(props) {
         <Col md={{ span: 10, offset: 1 }}>
           <Row className="client-border1">
             {ticketNumber < 0 ?
-              <RequestTicket handleSubmit={handleSubmit} clientName={clientName} setClientName={setClientName} services={props.services} serviceType={serviceType} setServiceType={setServiceType} /> :
+              <RequestTicket serviceTypes={serviceTypes} handleSubmit={handleSubmit} clientName={clientName} setClientName={setClientName} services={props.services} serviceTypeRequested={serviceTypeRequested} setServiceTypeRequested={setServiceTypeRequested} /> :
               <ShowTicket clientName={clientName} ticketNumber={ticketNumber} />}
           </Row>
         </Col>
@@ -64,10 +69,8 @@ function RequestTicket(props) {
           <h6>Select the type of service needed:</h6>
         </Col>
         <Col md={{ span: 5, offset: 1 }}>
-        <select value={props.serviceType} onChange={ev => props.setServiceType(ev.target.value)} className="select">
-            <option value="service #1">service #1</option>
-            <option value="service #2">service #2	</option>
-            <option value="service #3">service #3</option>
+          <select value={props.serviceTypeRequested} onChange={ev => props.setServiceTypeRequested(ev.target.value)} className="select">
+            {props.serviceTypes.map(s => <option key={s.id} value={s.tagName}>{s.tagName}</option>)}
           </select>
         </Col>
       </Row>

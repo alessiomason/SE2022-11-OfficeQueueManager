@@ -1,9 +1,6 @@
 const APIURL = new URL('http://localhost:3001/api/');
 
-async function getTicket(clientName, serviceType) { 
-
-	// temporarily, I return a random number between 1 and 99
-	// return Math.floor(Math.random() * 99) + 1;
+async function getTicket(clientName, serviceType) {
 	
 	const ticket = JSON.stringify({
 		name: clientName,
