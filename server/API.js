@@ -15,6 +15,7 @@ module.exports.useAPIs = function useAPIs(app, isLoggedIn) {
 		}
 	});
 
+    // create a new ticket
     app.post('/api/newTicket',  async (req, res) => {
 
         const errors = validationResult(req);
@@ -29,13 +30,11 @@ module.exports.useAPIs = function useAPIs(app, isLoggedIn) {
         const tagName = req.body.serviceType;
         const clientName = req.body.name;
 
-        // check if the client already has a ticket...
-
         // from tagName, retrieve id of the service
 
         const service = await dao.getServiceIdByTag(tagName);
 
-        // DATO IL NOME E IL SERVIZIO RICHIESTO, GLI ASSEGNO UN ID E UN TICKET
+        // GIVEN NAME OF THE CLIENT AND TYPE OF SERVICE, DB ASSIGNE ID_CLIENT AND ID_TICKET
 
         const lastID = await dao.getLastTicketId();
         const idTicket = lastID + 1;
@@ -47,5 +46,27 @@ module.exports.useAPIs = function useAPIs(app, isLoggedIn) {
             res.status(500).json({ error: `Database error during the creation of ticket of the client ${clientName}.`});
         }
         
+    });
+
+    // get all tickets
+    app.get('/api/tickets', async (req, res) => {
+		try {
+			const tickets = await dao.tickets();
+			res.status(200).json(tickets);
+		}
+		catch (err) {
+			res.status(500).end();
+		}
+	});
+
+    // delete all tickets
+    app.delete('/api/deleteTickets', async (req, res) => {
+        try {
+            await dao.deleteAllTickets();
+            res.status(204).end();
+
+        } catch (e) {
+            res.status(500).end();
+        }
     });
 }

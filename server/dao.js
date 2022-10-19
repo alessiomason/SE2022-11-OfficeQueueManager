@@ -48,7 +48,13 @@ exports.getLastTicketId = () => {
 				reject(err);
 				return;
 			}
-			const ticket = { idTicket: row.idTicket}
+			let ticket;
+			if (row === undefined) {
+				 ticket = { idTicket: 0}
+			} else {
+				 ticket = { idTicket: row.idTicket}
+			}
+			
 			resolve(ticket.idTicket);
 		});
 	});
@@ -63,6 +69,34 @@ exports.newTicket = (nameClient, idTicket, idService) => {
 			return;
 		  }
 		  resolve(idTicket);
+		});
+	  });
+}
+
+// get all the tickets available on the office
+exports.tickets = () => {
+	return new Promise((resolve, reject) => {
+	  const sql = 'SELECT * FROM CLIENT';
+	  db.all(sql, [], (err, rows) => {
+		if (err) {
+		  reject(err);
+		  return;
+		}
+		const ticket = rows.map((u) => ({ id: u.id, name: u.name, idTicket: u.idTicket, serviceType: u.serviceType }));
+		resolve(ticket);
+	  });
+	});
+}
+
+exports.deleteAllTickets = () => {
+	return new Promise((resolve, reject) => {
+		const sql = 'DELETE FROM CLIENT';
+		db.all(sql, [], (err, rows) => {
+		  if (err) {
+			reject(err);
+			return;
+		  }
+		  resolve();
 		});
 	  });
 }
