@@ -15,7 +15,17 @@ module.exports.useAPIs = function useAPIs(app, isLoggedIn) {
 		}
 	});
 
-    // create a new ticket
+    app.delete('/api/services/:serviceID', async (req, res) => {
+        const serviceID = Number(req.params.serviceID);
+		try {
+			const deleteService = await dao.deleteServiceIdByID(serviceID);
+			res.status(200).json({success : 'The service deleted.'});
+		}
+		catch (err) {
+			res.status(500).json({error : 'The service could not deleted'});
+		}
+	});
+
     app.post('/api/newTicket',  async (req, res) => {
 
         const errors = validationResult(req);
