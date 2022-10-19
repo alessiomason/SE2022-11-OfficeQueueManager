@@ -79,4 +79,82 @@ module.exports.useAPIs = function useAPIs(app, isLoggedIn) {
             res.status(500).end();
         }
     });
+
+    // add new service type
+    app.post('/api/newService',  async (req, res) => {
+
+        const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(422).json({ errors: errors.array() });
+		}
+
+        // check if the desription of the service is empty 
+		if (req.body.tagName === ''){
+			return res.status(422).json({ error: `Description name of the service can not be empty.`});
+		}
+        tagName = req.body.tagName;
+        serviceTime = req.body.serviceTime;
+                
+        try {
+            const service = await dao.newService(tagName,serviceTime);
+            res.status(201).json(service).end();
+        } catch (err) {
+            
+            res.status(500).json({ error: `Database error during creation of a new service.`});
+        }
+        
+    });
+    
+    // update service name
+    app.put('/api/updateServiceName',  async (req, res) => {
+
+        const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(422).json({ errors: errors.array() });
+		}
+
+        // check if the new desription of the service is empty 
+		if (req.body.tagName === ''){
+			return res.status(422).json({ error: `New name of the service description can not be empty.`});
+		}
+        tagName = req.body.tagName;
+        serviceId = req.body.id;
+                
+        try {
+            const service = await dao.updateServiceName(tagName,serviceId);
+            res.status(201).json(service).end();
+        } catch (err) {
+        
+            res.status(500).json({ error: `Database error during update of the service name.`});
+        }
+        
+    });
+    // update service time
+    app.put('/api/updateServiceTime',  async (req, res) => {
+
+        const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(422).json({ errors: errors.array() });
+		}
+         // check if the new desription of the service is empty 
+		if (req.body.serviceTime < 0){
+			return res.status(422).json({ error: `Service time must be a positive number.`});
+		}
+
+        serviceTime = req.body.serviceTime;
+        serviceId = req.body.id;
+                 
+        try {
+            const service = await dao.updateServiceTime(serviceId, serviceTime);
+            res.status(201).json(service).end();
+        } catch (err) {
+          res.status(500).json({ error: `Database error during update of the service time.`});
+        }
+        
+    });
+
+
+
+
+
 }

@@ -112,3 +112,40 @@ exports.deleteAllTickets = () => {
 		});
 	  });
 }
+
+exports.newService = (tagName, serviceTime) => {
+	return new Promise((resolve, reject) => {
+		const sql = 'INSERT INTO SERVICE(tagName, serviceTime) VALUES(?, ?)'
+		db.run(sql, [tagName, serviceTime], function (err) {  
+		  if (err) {
+			reject(err);
+			return;
+		  }
+		  resolve();
+		});
+	  });
+}
+exports.updateServiceName = (tagName,serviceId) => {
+	return new Promise((resolve, reject) => {
+		const sql = 'UPDATE SERVICE SET tagName=? WHERE id=?'
+		db.run(sql, [tagName, serviceId], function (err) {  
+		  if (err) {
+			reject(err);
+			return;
+		  }
+		  resolve();
+		});
+	  });
+}
+exports.updateServiceTime = (serviceId, serviceTime) => {
+	return new Promise((resolve, reject) => {
+		const sql = 'UPDATE SERVICE SET serviceTime=? WHERE id=?'
+		db.run(sql, [serviceTime, serviceId], function (err) {  
+		  if (err) {
+			reject(err);
+			return;
+		  }
+		  resolve();
+		});
+	  });
+}
